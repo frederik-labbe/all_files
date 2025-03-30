@@ -1,8 +1,8 @@
 [actions]
 
-[actions.check_hello]
+[actions.check_hello_start]
 enabled = true
 root = "."
-filters = [".rc"]
+ext_filters = [".txt"]
 report_success = false
 

@@ -1,4 +1,4 @@
-def action_check_hello(filepath: str) -> bool:
+def action_check_hello_start(filepath: str) -> bool:
     with open(filepath, 'r') as f:
         content = f.read()
 
