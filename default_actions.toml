@@ -1,5 +1,3 @@
-title = "Default actions"
-
 [actions]
 
 [actions.check_hello]
