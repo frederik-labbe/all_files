@@ -1,0 +1,10 @@
+title = "Default actions"
+
+[actions]
+
+[actions.check_hello]
+enabled = true
+root = "."
+filters = [".rc"]
+report_success = false
+
