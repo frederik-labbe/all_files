@@ -33,7 +33,7 @@ def validate_action_config(action_name: str, action_config: Dict[str, any]) -> N
         raise ValueError(f'Key "filters" is missing for action {action_name} in config !')
     
     if not 'report_success' in action_config:
-        raise ValueError(f'"report_success" is missing for action {action_name} in config !')
+        raise ValueError(f'Key "report_success" is missing for action {action_name} in config !')
 
 def run_actions(actions_config_file: str = './default_actions.toml') -> None:
     actions_config = load_actions(actions_config_file)
