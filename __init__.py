@@ -1,1 +1,1 @@
-from all_files import *
+from .all_files import *

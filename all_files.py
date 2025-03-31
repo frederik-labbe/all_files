@@ -1,13 +1,16 @@
 import os
 import tomllib
 
+import importlib
+
 import logging
 logging.basicConfig(level=logging.INFO)
 
-import actions
-from runner import Runner
+from .runner import Runner
 
-def load_actions(configs_path: str) -> dict[str, any]:
+actions = None
+
+def load_action_config(configs_path: str) -> dict[str, any]:
     with open(configs_path, 'rb') as f:
         return tomllib.load(f)
 
@@ -19,9 +22,6 @@ def file_iter(root: str, ext_filters: list[str] = []):
         yield path
 
 def validate_action_config(action_name: str, action_config: dict[str, any]) -> None:
-    if not hasattr(actions, f'action_{action_name}'):
-        raise ValueError(f'Action {action_name} does not exist !')
-
     if not 'enabled' in action_config:
         raise ValueError(f'Key "enable" is missing for action {action_name} in config !')
 
@@ -33,9 +33,14 @@ def validate_action_config(action_name: str, action_config: dict[str, any]) -> N
     
     if not 'report_success' in action_config:
         raise ValueError(f'Key "report_success" is missing for action {action_name} in config !')
+    
+def register_actions_module(action_module: any) -> None:
+    global actions
+
+    actions = action_module
 
 def run_actions(actions_config_file: str = './default_actions.toml') -> None:
-    actions_config = load_actions(actions_config_file)
+    actions_config = load_action_config(actions_config_file)
 
     for action_name in actions_config['actions']:
         action_config = actions_config['actions'][action_name]
@@ -48,4 +53,4 @@ def run_actions(actions_config_file: str = './default_actions.toml') -> None:
         validate_action_config(action_name, action_config)
 
         for filepath in file_iter(action_config['root'], action_config['ext_filters']):
-            Runner(filepath).run(action_name, action_config['report_success'])
+            Runner(filepath, actions).run(action_name, action_config['report_success'])

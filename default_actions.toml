@@ -1,8 +1,0 @@
-[actions]
-
-[actions.check_hello_start]
-enabled = true
-root = "."
-ext_filters = [".txt"]
-report_success = false
-
