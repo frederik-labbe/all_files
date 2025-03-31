@@ -1,5 +1,4 @@
 import os
-from typing import List, Dict
 import tomllib
 
 import logging
@@ -8,18 +7,18 @@ logging.basicConfig(level=logging.INFO)
 import actions
 from runner import Runner
 
-def load_actions(configs_path: str) -> Dict[str, any]:
+def load_actions(configs_path: str) -> dict[str, any]:
     with open(configs_path, 'rb') as f:
         return tomllib.load(f)
 
-def file_iter(root: str, ext_filters: List[str] = []):
+def file_iter(root: str, ext_filters: list[str] = []):
     for path in [os.path.join(dirpath,f) for (dirpath, dirnames, filenames) in os.walk(root) for f in filenames]:
         if len(ext_filters) > 0 and not path.endswith(tuple(ext_filters)):
             continue
 
         yield path
 
-def validate_action_config(action_name: str, action_config: Dict[str, any]) -> None:
+def validate_action_config(action_name: str, action_config: dict[str, any]) -> None:
     if not hasattr(actions, f'action_{action_name}'):
         raise ValueError(f'Action {action_name} does not exist !')
 
@@ -44,7 +43,7 @@ def run_actions(actions_config_file: str = './default_actions.toml') -> None:
         if not action_config['enabled']:
             continue
 
-        logging.log(logging.INFO, f'Processing {action_name}...')
+        logging.info(f'Processing {action_name}...')
 
         validate_action_config(action_name, action_config)
 

@@ -16,6 +16,6 @@ class Runner:
 
         if action_fn(self._filepath):
             if report_success:
-                logging.log(logging.INFO, f'Action {action_name} on file {self._filepath} has succeeded !')
+                logging.info(f'Action {action_name} on file {self._filepath} has succeeded !')
         else:
-            logging.log(logging.INFO, f'Action {action_name} on file {self._filepath} has failed !')
+            logging.info(f'Action {action_name} on file {self._filepath} has failed !')
