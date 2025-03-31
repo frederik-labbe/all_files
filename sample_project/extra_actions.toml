@@ -1,0 +1,7 @@
+[actions]
+
+[actions.extra_bar]
+enabled = true
+root = "."
+ext_filters = [".txt"]
+report_success = true
