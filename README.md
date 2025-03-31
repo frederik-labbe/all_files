@@ -1,6 +1,6 @@
 # all_files
 
-## A Python module that centralized file iteration and applies specific actions to different file branches.
+## A Python module that centralizes file iteration and applies specific actions to different file branches.
 
 ### Configuration:
 - Fill `actions.py` with potential actions. Define those actions likes this:
