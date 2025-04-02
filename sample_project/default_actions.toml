@@ -5,4 +5,4 @@ enabled = true
 root = "."
 ext_filters = [".txt"]
 report_success = true
-
+stop_on_error = false

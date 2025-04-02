@@ -34,6 +34,9 @@ def validate_action_config(action_name: str, action_config: dict[str, any]) -> N
     if not 'report_success' in action_config:
         raise ValueError(f'Key "report_success" is missing for action {action_name} in config !')
     
+    if not 'stop_on_error' in action_config:
+        raise ValueError(f'Key "stop_on_error" is missing for action {action_name} in config !')
+    
 def register_actions_module(action_module: any) -> None:
     global actions
 
@@ -53,4 +56,5 @@ def run_actions(actions_config_file: str = './default_actions.toml') -> None:
         validate_action_config(action_name, action_config)
 
         for filepath in file_iter(action_config['root'], action_config['ext_filters']):
-            Runner(filepath, actions).run(action_name, action_config['report_success'])
+            if not Runner(filepath, actions).run(action_name, action_config['report_success']) and action_config['stop_on_error']:
+                raise ValueError(f'Error on action {action_name} for file {filepath}, please check !')
